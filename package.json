@@ -7,7 +7,7 @@
     "reaction"
   ],
   "homepage": "https://github.com/collaborne/paper-chip",
-  "name": "@collaborne/paper-chip",
+  "name": "@fluidnext-polymer/paper-chip",
   "version": "3.0.7",
   "main": "paper-chip.js",
   "author": "collaborne",
