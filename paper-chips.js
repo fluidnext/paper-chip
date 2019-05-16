@@ -2,8 +2,8 @@ import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import '@polymer/iron-icon';
 import '@polymer/paper-styles/default-theme';
-import '@collaborne/paper-chip/paper-chip';
-import '@collaborne/paper-chip/paper-chip-icons';
+import './paper-chip';
+import './paper-chip-icons';
 
 
 /**
@@ -117,6 +117,10 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
                 value: [],
                 observer: '_changeItems'
             },
+            textProperty: {
+                type: String,
+                value: null
+            }
         };
     }
 
@@ -160,7 +164,11 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @private
      */
     _getName(item) {
-        return (item !== null && typeof item === 'object' && item.name) ?  item.name :  item;
+        return (item !== null && typeof item === 'object' && item[this.textProperty]) ?  item[this.textProperty] :  this._getString(item);
+    }
+
+    _getString(item) {
+        return typeof(item) === 'string' ? item : null;
     }
 
     /**

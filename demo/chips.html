@@ -15,10 +15,12 @@
 				<h2>&lt;paper-chips&gt;</h2>
 				<dom-bind>
 					<template>
-						<paper-chips id="chips" items="[[fruits]]" empty="{{empty}}" on-delete-item="onRemove"></paper-chips><br>
+						<paper-chips id="chips" text-property="name" items="[[fruits]]" empty="{{empty}}" on-delete-item="onRemove"></paper-chips><br>
 						
 						<input value="{{newFruit::input}}"></input>
-
+						<paper-autocomplete id="first" show-results-on-focus="true" label="Search Fruits" text-property="name">
+							<paper-icon-button slot="suffix" suffix icon="icons:search"></paper-icon-button>
+						</paper-autocomplete>
 						<button on-tap="onAdd">Add</button>
 						<button on-tap="onRemoveLast">Remove last chip</button><br>
 						Is empty? [[empty]]
@@ -29,7 +31,10 @@
 					var scope = document.querySelector('dom-bind');
 					scope.fruits = [
 						{ id: 'apples', name: 'Apples' },
-						{ id: 'pears', name: 'Pears' }
+						"Orange",
+						["imma intruder 1", "imma intruder 2"],
+						4,
+						{ id: 'ananas', name: 'Ananas' }
 					];
 
 					scope.onAdd = function() {

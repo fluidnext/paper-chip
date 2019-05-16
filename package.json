@@ -30,6 +30,7 @@
     "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
+    "@fluidnext-polymer/paper-autocomplete": "^3.0.0",
     "@polymer/iron-component-page": "^4.0.0",
     "@polymer/iron-demo-helpers": "^3.0.0",
     "@polymer/iron-input": "^3.0.1",
