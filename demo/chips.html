@@ -7,48 +7,58 @@
 			import '@polymer/paper-checkbox';
 			import '../paper-chips.js';
 		</script>
+		<custom-style>
+				<style is="custom-style" include="demo-pages-shared-styles">
+					body{
+						font-family:roboto;
+					}
+				</style>
+		</custom-style>
 	</head>
 
 	<body>
-		<demo-snippet>
-			<template>
-				<h2>&lt;paper-chips&gt;</h2>
-				<dom-bind>
-					<template>
-						<paper-chips id="chips" text-property="name" items="[[fruits]]" empty="{{empty}}" on-delete-item="onRemove"></paper-chips><br>
-						
-						<input value="{{newFruit::input}}"></input>
-						<paper-autocomplete id="first" show-results-on-focus="true" label="Search Fruits" text-property="name">
-							<paper-icon-button slot="suffix" suffix icon="icons:search"></paper-icon-button>
-						</paper-autocomplete>
-						<button on-tap="onAdd">Add</button>
-						<button on-tap="onRemoveLast">Remove last chip</button><br>
-						Is empty? [[empty]]
-					</template>
-				</dom-bind>
+		<div class="vertical-section-container centered">
 
-				<script>
-					var scope = document.querySelector('dom-bind');
-					scope.fruits = [
-						{ id: 'apples', name: 'Apples' },
-						"Orange",
-						["imma intruder 1", "imma intruder 2"],
-						4,
-						{ id: 'ananas', name: 'Ananas' }
-					];
+				<h3>Paper Chips with property selection</h2>
+			<demo-snippet>
+				<template>
+					<dom-bind>
+						<template>
+							<paper-autocomplete id="nameInput" show-results-on-focus="true" label="New Fruit Name" text-property="name"></paper-autocomplete>
+							<br>
+							<br>
+							<br>
+							<paper-chips id="chips" text-property="name" items="[[fruits]]" empty="{{empty}}" on-delete-item="onRemove"></paper-chips><br>
+						</template>
+					</dom-bind>
 
-					scope.onAdd = function() {
-						this.$.chips.add({ name: this.newFruit });
-					}
-					scope.onRemoveLast = function() {
-						this.$.chips.removeLast();
-					}
-					scope.onRemove = function(e) {
-						const {itemId} = e.detail;
-						alert(`Removed item: ${itemId}`);
-					}
-				</script>
-			</template>
-		</demo-snippet>
+					<script>
+						document.addEventListener('DOMContentLoaded', (event) => {
+							var scope = document.querySelector('dom-bind');
+							scope.fruits = [
+								{ id: 'apples', name: 'Apples' },
+								"Orange",
+								{ id: 'ananas', name: 'Ananas' }
+							];
+							scope.sendInput = function(evt) {
+								console.log(evt);
+								if(evt.code === 'Enter'){
+									scope.onAdd();
+								}
+							}
+							scope.$.nameInput.addEventListener('keypress', scope.sendInput);
+							scope.onAdd = function() {
+								this.$.chips.add({ name: this.$.nameInput.text });
+							}
+
+							scope.onRemove = function(e) {
+								const {itemId} = e.detail;
+								alert(`Removed item: ${itemId}`);
+							}
+						})
+					</script>
+				</template>
+			</demo-snippet>
+		</div>
 	</body>
 </html>

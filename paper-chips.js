@@ -2,6 +2,7 @@ import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import '@polymer/iron-icon';
 import '@polymer/paper-styles/default-theme';
+import '@fluidnext-polymer/paper-autocomplete/paper-autocomplete';
 import './paper-chip';
 import './paper-chip-icons';
 
