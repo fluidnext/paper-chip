@@ -4,7 +4,7 @@
 			import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
 			import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
 			import '@polymer/iron-demo-helpers/demo-snippet.js';
-			import '@polymer/paper-checkbox';
+			import '@polymer/paper-input/paper-input';
 			import '../paper-chips.js';
 		</script>
 		<custom-style>
@@ -17,43 +17,147 @@
 	</head>
 
 	<body>
+		<style>
+			.chipsContainer {
+				height: 70px;
+				overflow: scroll;
+			}
+		</style>
 		<div class="vertical-section-container centered">
-
-				<h3>Paper Chips with property selection</h2>
+			<h3>Paper Chips accept strings</h3>
 			<demo-snippet>
 				<template>
-					<dom-bind>
+					<dom-bind id="stringInputDemo">
 						<template>
-							<paper-autocomplete id="nameInput" show-results-on-focus="true" label="New Fruit Name" text-property="name"></paper-autocomplete>
-							<br>
-							<br>
-							<br>
-							<paper-chips id="chips" text-property="name" items="[[fruits]]" empty="{{empty}}" on-delete-item="onRemove"></paper-chips><br>
+								<div class="chipsContainer">
+									<paper-chips id="stringChips" items=[[fruits]] empty="{{empty}}" on-delete-item="onRemove"></paper-chips>
+								</div>
+								<paper-input id="fruitInputString" label="Enter a fruit name and press enter"></paper-input>
+						</template>
+					</dom-bind>
+					<script>
+						document.addEventListener('DOMContentLoaded', (event) => {
+							var scope = document.querySelector('dom-bind#stringInputDemo');
+							scope.fruits = [
+								"Apricot",
+								"Wumpa",
+								"Pear"
+							]
+							scope.sendInput = function(evt) {
+								if(evt.code === 'Enter'){
+									scope.onAdd();
+								}
+							}
+							scope.$.fruitInputString.addEventListener('keypress', scope.sendInput);
+							scope.onAdd = function() {
+								this.$.stringChips.add(this.$.fruitInputString.value);
+							}
+
+							scope.onRemove = function(e) {
+								const {itemId} = e.detail;
+							}
+						})
+					</script>
+				</template>
+			</demo-snippet>
+
+			<h3>Paper Chips accept objects</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						paper-autocomplete#fruitInputObjects {
+							--paper-autocomplete-main-color: #37BF00;
+							--paper-input-font-color: Black;
+						}
+					</style>
+					<dom-bind id="objectInputDemo">
+						<template>
+							<div class="chipsContainer">
+								<paper-chips id="objectChips" text-property="name" empty="{{empty}}" on-delete-item="onRemove"></paper-chips>
+							</div>
+							<paper-autocomplete id="fruitInputObjects" show-results-on-focus="true" label="Select Fruit & Press Enter" text-property="name">
+								<template id="customTemplate" slot="autocomplete-custom-template">
+									<style>
+										:host {
+											--suggestions-item-min-height: 100px;
+										}
+
+										.container{
+											display: flex;
+											flex-direction: column;
+										}
+				
+										.info{
+											padding: 2px;
+											width: 100%;
+										}
+				
+										.info > div{
+											padding-left: 4px;
+										}
+				
+										.fruit-name {
+											color: #2F4858;
+										}
+				
+										.fruit-id{
+											margin-top: 4px;
+											color: #007C86;
+										}
+									</style>
+									<paper-item class="custom-item" on-tap="_onSelect" id$="[[_getSuggestionId(index)]]" role="option" aria-selected="false">
+										<div class="container info" index="[[index]]">
+											<div class="fruit-id">ID: [[item.id]]</div>
+											<div class="fruit-name">Name: [[item.name]]</div>
+										</div>
+										<paper-ripple></paper-ripple>
+									</paper-item>
+								</template>
+							</paper-autocomplete>
 						</template>
 					</dom-bind>
 
 					<script>
 						document.addEventListener('DOMContentLoaded', (event) => {
-							var scope = document.querySelector('dom-bind');
+							var scope = document.querySelector('dom-bind#objectInputDemo');
+
+							// Data for the second example
+							let remoteData = [];
+							let xmlhttp = new XMLHttpRequest();
+							let url = "json_for_Remote.json"; 
 							scope.fruits = [
 								{ id: 'apples', name: 'Apples' },
-								"Orange",
-								{ id: 'ananas', name: 'Ananas' }
+								{ id: 'ananas', name: 'Ananas' },
+								{ id: 'pineapple', name: 'Pineapple' },
+								{ id: 'orange', name: 'Orange' }
 							];
+
+							xmlhttp.onreadystatechange = function () {
+								if (this.readyState == 4 && this.status == 200) {
+									remoteData = JSON.parse(this.responseText);
+								}
+							};
+
+							xmlhttp.open("GET", url, true);
+							xmlhttp.send();
+
+							// setVariable for the fruitInputObjects example
+							setTimeout(function(){
+								document.querySelector('#fruitInputObjects').source = scope.fruits;
+							}, 1000);
+							
 							scope.sendInput = function(evt) {
-								console.log(evt);
 								if(evt.code === 'Enter'){
 									scope.onAdd();
 								}
 							}
-							scope.$.nameInput.addEventListener('keypress', scope.sendInput);
+							scope.$.fruitInputObjects.addEventListener('keypress', scope.sendInput);
 							scope.onAdd = function() {
-								this.$.chips.add({ name: this.$.nameInput.text });
+								this.$.objectChips.add({ name: this.$.fruitInputObjects.value[this.$.objectChips.textProperty] });
 							}
 
 							scope.onRemove = function(e) {
 								const {itemId} = e.detail;
-								alert(`Removed item: ${itemId}`);
 							}
 						})
 					</script>

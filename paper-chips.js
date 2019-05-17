@@ -111,7 +111,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
              *  { id: 'bananas', name: 'Bananas', fixed: true}
              * ]
              * ```
-             */
+            */
             items: {
                 notify: true,
                 type: Array,
@@ -119,6 +119,10 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
                 observer: '_changeItems'
             },
             textProperty: {
+                type: String,
+                value: null
+            },
+            imageProperty: {
                 type: String,
                 value: null
             }
@@ -148,7 +152,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @private
      */
     _getImage(item) {
-        return (item !== null && typeof item === 'object' && item.image) ? item.image : '';
+        return (item !== null && typeof item === 'object' && item[this.imageProperty]) ? item[this.imageProperty] : '';
     }
 
     /**
