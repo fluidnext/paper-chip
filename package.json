@@ -6,7 +6,7 @@
     "emoji",
     "reaction"
   ],
-  "homepage": "https://github.com/collaborne/paper-chip",
+  "homepage": "https://github.com/fluidnext/paper-chip",
   "name": "@fluidnext-polymer/paper-chip",
   "version": "3.0.7",
   "main": "paper-chip.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Collaborne/paper-chip.git"
+    "url": "git+https://github.com/fluidnext/paper-chip"
   },
   "scripts": {
     "lint": "eslint . && polymer lint",
@@ -39,5 +39,13 @@
     "eslint": "^5.12.1",
     "eslint-config-collaborne": "^1.5.0",
     "polymer-cli": "^1.9.5"
-  }
+  },
+  "contributors": [
+    {
+        "name": "Simone Spada"
+    },
+    {
+        "name": "Antonio Visalli"
+    }
+  ]
 }
