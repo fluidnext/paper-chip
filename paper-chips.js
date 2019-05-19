@@ -2,13 +2,12 @@ import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import '@polymer/iron-icon';
 import '@polymer/paper-styles/default-theme';
-import '@fluidnext-polymer/paper-autocomplete/paper-autocomplete';
 import './paper-chip';
 import './paper-chip-icons';
 
 
 /**
- A list of chips that an be dynamically added/removed. This element can be used
+ A list of chips that can be dynamically added/removed. This element can be used
  to let users enter a list of topics or names.
 
  ### Example
@@ -49,8 +48,8 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			}
 
 			img {
-				width: 32px;
-				height: 32px;
+				width: 25px;
+				height: 25px;
 				border-radius: 50% 50% 50% 50%;
 				vertical-align: middle;
 				margin-right: 4px;
