@@ -20,7 +20,7 @@
 		<style>
 			.chipsContainer {
 				height: 70px;
-				overflow: scroll;
+				overflow: auto;
 			}
 		</style>
 		<div class="vertical-section-container centered">
@@ -61,7 +61,7 @@
 				</template>
 			</demo-snippet>
 
-			<h3>Paper Chips accept objects</h3>
+			<h3>Paper Chips accept objects and associated images</h3>
 			<demo-snippet>
 				<template>
 					<style>
@@ -73,7 +73,7 @@
 					<dom-bind id="objectInputDemo">
 						<template>
 							<div class="chipsContainer">
-								<paper-chips id="objectChips" text-property="name" empty="{{empty}}" on-delete-item="onRemove"></paper-chips>
+								<paper-chips id="objectChips" text-property="name" image-property="preview" empty="{{empty}}" on-delete-item="onRemove"></paper-chips>
 							</div>
 							<paper-autocomplete id="fruitInputObjects" show-results-on-focus="true" label="Select Fruit & Press Enter" text-property="name">
 								<template id="customTemplate" slot="autocomplete-custom-template">
@@ -100,7 +100,7 @@
 											color: #2F4858;
 										}
 				
-										.fruit-id{
+										.fruit-id, .fruit-color{
 											margin-top: 4px;
 											color: #007C86;
 										}
@@ -109,6 +109,7 @@
 										<div class="container info" index="[[index]]">
 											<div class="fruit-id">ID: [[item.id]]</div>
 											<div class="fruit-name">Name: [[item.name]]</div>
+											<div class="fruit-color">Color: [[item.color]]</div>
 										</div>
 										<paper-ripple></paper-ripple>
 									</paper-item>
@@ -121,25 +122,17 @@
 						document.addEventListener('DOMContentLoaded', (event) => {
 							var scope = document.querySelector('dom-bind#objectInputDemo');
 
-							// Data for the second example
-							let remoteData = [];
-							let xmlhttp = new XMLHttpRequest();
-							let url = "json_for_Remote.json"; 
 							scope.fruits = [
-								{ id: 'apples', name: 'Apples' },
-								{ id: 'ananas', name: 'Ananas' },
-								{ id: 'pineapple', name: 'Pineapple' },
-								{ id: 'orange', name: 'Orange' }
+								{ id: 'apples', name: 'Apples', color: 'Green', preview: "apple.jpg"},
+								{ id: 'Bananas', name: 'Bananas', color: 'Yellow', preview: "banana.jpg"},
+								{ id: 'pineapple', name: 'Pineapple', color: 'Brown/Yellow', preview: "pineapple.jpg"},
+								{ id: 'orange', name: 'Orange', color: 'Orange'}
 							];
 
-							xmlhttp.onreadystatechange = function () {
-								if (this.readyState == 4 && this.status == 200) {
-									remoteData = JSON.parse(this.responseText);
-								}
-							};
-
-							xmlhttp.open("GET", url, true);
-							xmlhttp.send();
+							scope.$.objectChips.add({ 
+								[scope.$.objectChips.textProperty]: scope.fruits[0][scope.$.objectChips.textProperty], 
+								[scope.$.objectChips.imageProperty]: scope.fruits[0][scope.$.objectChips.imageProperty]
+							});
 
 							// setVariable for the fruitInputObjects example
 							setTimeout(function(){
@@ -153,7 +146,10 @@
 							}
 							scope.$.fruitInputObjects.addEventListener('keypress', scope.sendInput);
 							scope.onAdd = function() {
-								this.$.objectChips.add({ name: this.$.fruitInputObjects.value[this.$.objectChips.textProperty] });
+								this.$.objectChips.add({ 
+									[this.$.objectChips.textProperty]: this.$.fruitInputObjects.value[this.$.objectChips.textProperty], 
+									[this.$.objectChips.imageProperty]: this.$.fruitInputObjects.value[this.$.objectChips.imageProperty]
+								});
 							}
 
 							scope.onRemove = function(e) {

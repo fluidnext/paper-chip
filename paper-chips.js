@@ -51,7 +51,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			img {
 				width: 32px;
 				height: 32px;
-				border-radius: 0 50% 50% 0;
+				border-radius: 50% 50% 50% 50%;
 				vertical-align: middle;
 				margin-right: 4px;
 			}
