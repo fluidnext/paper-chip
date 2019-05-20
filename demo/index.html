@@ -58,7 +58,6 @@
 							]
 
 							domBind.sendInput = function(evt) {
-								console.log(evt);
 								if(evt.code === 'Enter' && evt.target.value && evt.target.value != ''){
 									domBind.$.stringChips.add(evt.target.value);
 									evt.target.value = null;
