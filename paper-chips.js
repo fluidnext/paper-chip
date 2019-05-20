@@ -48,9 +48,9 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			}
 
 			img {
-				width: 25px;
-				height: 25px;
-				border-radius: 50% 50% 50% 50%;
+				width: 24px;
+				height: 24px;
+				border-radius: 50%;
 				vertical-align: middle;
 				margin-right: 4px;
 			}
@@ -168,11 +168,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @private
      */
     _getName(item) {
-        return (item !== null && typeof item === 'object' && item[this.textProperty]) ?  item[this.textProperty] :  this._getString(item);
-    }
-
-    _getString(item) {
-        return typeof(item) === 'string' ? item : null;
+        return (item !== null && typeof item === 'object' && item[this.textProperty]) ?  item[this.textProperty] :  item;
     }
 
     /**
