@@ -122,8 +122,7 @@
                                     color: #007C86;
                                 }
                             </style>
-                            <paper-item class="custom-item" on-tap="_onSelect" id$="[[_getSuggestionId(index)]]"
-                                        role="option" aria-selected="false">
+                            <paper-item class="custom-item" on-tap="_onSelect" id$="[[_getSuggestionId(index)]]" role="option" aria-selected="false">
                                 <div class="container info" index="[[index]]">
                                     <div class="fruit-id">ID: [[item.id]]</div>
                                     <div class="fruit-name">Name: [[item.name]]</div>
@@ -135,7 +134,6 @@
                     </paper-autocomplete>
                 </template>
             </dom-bind>
-
             <script>
                 document.addEventListener('DOMContentLoaded', (event) => {
 

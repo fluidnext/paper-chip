@@ -67,10 +67,6 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			.chip[selectable]:hover .delete {
 				color: black;
 			}
-			
-			iron-icon {
-			    margin-bottom: 3px;
-			}
 
 			[hidden] {
 				display: none;
