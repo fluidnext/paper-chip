@@ -93,10 +93,6 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 		</template>`;
     }
 
-    static get is() {
-        return 'paper-chips';
-    }
-
     static get properties() {
         return {
 
@@ -114,8 +110,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
             items: {
                 notify: true,
                 type: Array,
-                value: [],
-                observer: '_changeItems'
+                value: []
             },
             textProperty: {
                 type: String,
@@ -134,16 +129,6 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      */
     _hasImage(item) {
         return this._getImage(item) === '' ? false : true;
-    }
-
-    /**
-     * @param newValue
-     * @private
-     */
-    _changeItems(newValue) {
-        if (!Array.isArray(newValue)) {
-            this.items = [];
-        }
     }
 
     /**
@@ -178,6 +163,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      */
     add(item) {
 
+        console.log('ADD', this.items, item);
         // Needs to use Polymer push to trigger data binding
         this.push('items', item);
     }
@@ -202,7 +188,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
             },
         }));
     }
-    
+
     /**
     * Removes the last chip
     *
@@ -230,7 +216,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
             return;
         }
 
-        this.remove(this.items[0]);
+        this.remove(0);
     }
 
     /**
@@ -239,7 +225,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @returns {void}
      */
     _delete(e) {
-        this.remove(e.target.parentElement.index)
+        this.remove(e.target.parentElement.index);
     }
 }
-window.customElements.define(PaperChips.is, PaperChips);
+window.customElements.define('paper-chips', PaperChips);
