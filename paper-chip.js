@@ -25,7 +25,7 @@ class PaperChip extends PolymerElement {
 				display: inline-block;
 				background-color: var(--paper-chip-background, var(--paper-grey-300));
 				height: 32px;
-				line-height: 32px!important;
+				line-height: 30px!important;
 				padding: 0 12px;
 				border-radius: 16px;
 				color: var(--paper-chip-color, var(--primary-text-color));

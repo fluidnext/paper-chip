@@ -67,10 +67,6 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			.chip[selectable]:hover .delete {
 				color: black;
 			}
-			
-			iron-icon {
-			    margin-bottom: 3px;
-			}
 
 			[hidden] {
 				display: none;
@@ -230,7 +226,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
             return;
         }
 
-        this.remove(this.items[0]);
+        this.remove(0);
     }
 
     /**

@@ -13,6 +13,10 @@
 				<style is="custom-style" include="demo-pages-shared-styles">
 					body{
 						font-family:roboto;
+						--demo-snippet-code: {
+							max-height: 300px;
+							overflow: auto;
+						}
 					}
 				</style>
 		</custom-style>
@@ -29,7 +33,7 @@
 			<h3>Paper Chip</h3>
 				<demo-snippet>
 					<template>
-						<dom-bind>
+						<dom-bind id="simplePaperChip">
 							<template>
 								<paper-chip selectable="[[selectable]]">Apples</paper-chip>
 								<paper-checkbox checked="{{selectable}}">Selectable</paper-checkbox>
@@ -50,21 +54,21 @@
 					</dom-bind>
 					<script>
 						document.addEventListener('DOMContentLoaded', (event) => {
-							var domBind = document.querySelector('dom-bind#stringInputDemo');
-							domBind.fruits = [
+							const domBindStringDemo = document.querySelector('dom-bind#stringInputDemo');
+							domBindStringDemo.fruits = [
 								"Apricot",
 								"Wumpa",
 								"Pear"
-							]
+							];
 
-							domBind.sendInput = function(evt) {
+							domBindStringDemo.sendInput = function(evt) {
 								if(evt.code === 'Enter' && evt.target.value && evt.target.value != ''){
-									domBind.$.stringChips.add(evt.target.value);
+									domBindStringDemo.$.stringChips.add(evt.target.value);
 									evt.target.value = null;
 								}
 							}
 
-							domBind.onRemove = function(e) {
+							domBindStringDemo.onRemove = function(e) {
 								const item = e.detail.item[0];
 								console.log(item + " deleted")
 							}
@@ -79,13 +83,12 @@
 					<style>
 						paper-autocomplete#fruitInputObjects {
 							--paper-autocomplete-main-color: #37BF00;
-							--paper-input-font-color: Black;
 						}
 					</style>
 					<dom-bind id="objectInputDemo">
 						<template>
 							<div class="chipsContainer">
-								<paper-chips id="objectChips" text-property="name" image-property="preview" empty="{{empty}}" on-delete-item="onRemove"></paper-chips>
+								<paper-chips id="objectChips" items="[[defaultItems]]" text-property="name" image-property="preview" empty="{{empty}}" on-delete-item="onRemove"></paper-chips>
 							</div>
 							<paper-autocomplete id="fruitInputObjects" show-results-on-focus="true" label="Click me to select a Fruit" text-property="name" on-autocomplete-selected="addSelected">
 								<template id="customTemplate" slot="autocomplete-custom-template">
@@ -132,36 +135,39 @@
 
 					<script>
 						document.addEventListener('DOMContentLoaded', (event) => {
-							var domBind = document.querySelector('dom-bind#objectInputDemo');
+							const domBindObjectDemo = document.querySelector('dom-bind#objectInputDemo');
 
-							domBind.fruits = [
-								{ id: 'apples', name: 'Apples', color: 'Green', preview: "apple.jpg"},
+							domBindObjectDemo.fruits = [
+								{ id: 'apples', name: 'Apples', color: 'Red', preview: "apple.jpg"},
 								{ id: 'Bananas', name: 'Bananas', color: 'Yellow', preview: "banana.jpg"},
-								{ id: 'pineapple', name: 'Pineapple', color: 'Brown/Yellow', preview: "pineapple.jpg"},
+								{ id: 'pineapple', name: 'Pineapple', color: 'Green', preview: "pineapple.jpg"},
 								{ id: 'orange', name: 'Orange', color: 'Orange'}
 							];
 
-							domBind.$.objectChips.add({ 
-								[domBind.$.objectChips.textProperty]: domBind.fruits[0][domBind.$.objectChips.textProperty], 
-								[domBind.$.objectChips.imageProperty]: domBind.fruits[0][domBind.$.objectChips.imageProperty]
-							});
+							domBindObjectDemo.defaultItems = [
+								{ 
+									[domBindObjectDemo.$.objectChips.textProperty]: domBindObjectDemo.fruits[0][domBindObjectDemo.$.objectChips.textProperty], 
+									[domBindObjectDemo.$.objectChips.imageProperty]: domBindObjectDemo.fruits[0][domBindObjectDemo.$.objectChips.imageProperty]
+								}
+							];
 
 							// setVariable for the fruitInputObjects example
-							domBind.$.fruitInputObjects.source = domBind.fruits;
+							domBindObjectDemo.$.fruitInputObjects.source = domBindObjectDemo.fruits;
 
-							domBind.addSelected = function(evt) {
+							domBindObjectDemo.addSelected = function(evt) {
 								if(typeof(evt.detail.value) === 'object' && evt.detail.value != null){
-									domBind.$.objectChips.add({ 
-										[domBind.$.objectChips.textProperty]: evt.detail.value[domBind.$.objectChips.textProperty], 
-										[domBind.$.objectChips.imageProperty]: evt.detail.value[domBind.$.objectChips.imageProperty]
+									domBindObjectDemo.$.objectChips.add({ 
+										[domBindObjectDemo.$.objectChips.textProperty]: evt.detail.value[domBindObjectDemo.$.objectChips.textProperty], 
+										[domBindObjectDemo.$.objectChips.imageProperty]: evt.detail.value[domBindObjectDemo.$.objectChips.imageProperty]
 									});
+
 									setTimeout(function(){
 										evt.target.clear();
 									}, 500);
 								}
 							}
 
-							domBind.onRemove = function(e) {
+							domBindObjectDemo.onRemove = function(e) {
 								const item = e.detail.item[0].name;
 								console.log(item + " deleted")
 							}
