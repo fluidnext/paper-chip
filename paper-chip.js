@@ -15,7 +15,7 @@ Custom property | Description | Default
 `--paper-chip-color` | The text color | `--primary-text-color`
 `--paper-chip-color-selectable` | The text color hover of the chip | `white`
 
-@demo demo/chip.html
+@demo demo/index.html
 */
 class PaperChip extends PolymerElement {
 	static get template() {
@@ -46,10 +46,6 @@ class PaperChip extends PolymerElement {
 		<slot></slot>`;
 	}
 
-	static get is() {
-		return 'paper-chip';
-	}
-
 	static get properties() {
 		return {
 			selectable: {
@@ -60,4 +56,4 @@ class PaperChip extends PolymerElement {
 		};
 	}
 }
-window.customElements.define(PaperChip.is, PaperChip);
+window.customElements.define('paper-chip', PaperChip);

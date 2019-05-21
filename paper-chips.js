@@ -26,7 +26,7 @@ import './icons/paper-chip-icons';
  `name`   | Display name of the item
  `fixed`  | Boolean to indicate whether this item can be removed (`fixed` is `false`) or not (`fixed` is `true`)
 
- @demo demo/chips.html
+ @demo demo/index.html
  */
 class PaperChips extends GestureEventListeners(PolymerElement) {
     static get template() {
