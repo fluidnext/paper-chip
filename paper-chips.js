@@ -3,7 +3,7 @@ import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-l
 import '@polymer/iron-icon';
 import '@polymer/paper-styles/default-theme';
 import './paper-chip';
-import './paper-chip-icons';
+import './icons/paper-chip-icons';
 
 
 /**
@@ -202,13 +202,13 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
             },
         }));
     }
-
+    
     /**
-     * Removes the last chip
-     *
-     * Note that this will also remove chips marked as 'fixed'.
-     * @returns {void}
-     */
+    * Removes the last chip
+    *
+    * Note that this will also remove chips marked as 'fixed'.
+    * @returns {void}
+    */
     removeLast() {
         // Ignore if there are no chips left
         if (this.items.length === 0) {
@@ -216,6 +216,21 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
         }
 
         this.remove(this.items.length - 1);
+    }
+
+    /**
+     * Removes the first chip
+     *
+     * Note that this will also remove chips marked as 'fixed'.
+     * @returns {void}
+     */
+    removeFirst() {
+        // Ignore if there are no chips left
+        if (this.items.length === 0) {
+            return;
+        }
+
+        this.remove(this.items[0]);
     }
 
     /**
