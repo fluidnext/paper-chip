@@ -102,20 +102,23 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
              *  { id: 'bananas', name: 'Bananas', fixed: true}
              * ]
              * ```
-            */
+             */
             items: {
                 notify: true,
                 type: Array,
                 value: []
             },
+
             textProperty: {
                 type: String,
-                value: null
+                value: 'name'
             },
+
             imageProperty: {
                 type: String,
                 value: null
             }
+
         };
     }
 
@@ -186,11 +189,11 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
     }
 
     /**
-    * Removes the last chip
-    *
-    * Note that this will also remove chips marked as 'fixed'.
-    * @returns {void}
-    */
+     * Removes the last chip
+     *
+     * Note that this will also remove chips marked as 'fixed'.
+     * @returns {void}
+     */
     removeLast() {
         // Ignore if there are no chips left
         if (this.items.length === 0) {
