@@ -94,34 +94,7 @@
                             source="{{source}}"
                             on-autocomplete-selected="addSelected">
                         <template id="customTemplate" slot="autocomplete-custom-template">
-                            <style>
-                                :host {
-                                    --suggestions-item-min-height: 100px;
-                                }
-
-                                .container {
-                                    display: flex;
-                                    flex-direction: column;
-                                }
-
-                                .info {
-                                    padding: 2px;
-                                    width: 100%;
-                                }
-
-                                .info > div {
-                                    padding-left: 4px;
-                                }
-
-                                .fruit-name {
-                                    color: #2F4858;
-                                }
-
-                                .fruit-id, .fruit-color {
-                                    margin-top: 4px;
-                                    color: #007C86;
-                                }
-                            </style>
+                            <link rel="stylesheet" href="style.css">
                             <paper-item class="custom-item" on-tap="_onSelect" id$="[[_getSuggestionId(index)]]" role="option" aria-selected="false">
                                 <div class="container info" index="[[index]]">
                                     <div class="fruit-id">ID: [[item.id]]</div>

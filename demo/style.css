@@ -1,0 +1,26 @@
+:host {
+    --suggestions-item-min-height: 100px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    padding: 2px;
+    width: 100%;
+}
+
+.info > div {
+    padding-left: 4px;
+}
+
+.fruit-name {
+    color: #2F4858;
+}
+
+.fruit-id, .fruit-color {
+    margin-top: 4px;
+    color: #007C86;
+}
