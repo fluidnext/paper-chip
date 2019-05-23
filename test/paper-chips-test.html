@@ -54,9 +54,26 @@
                 assert.equal(element.textProperty, "name",'On textProperty property');
                 assert.equal(element.imageProperty, null,'On imageProperty property');
                 assert.equal(element.shadowRoot.querySelectorAll('paper-chip').length, 0, 'On number of chips created');
-                done();
-            });
 
+                console.log('Calling removeLast function');
+                element.removeLast();
+                setTimeout(function(){
+                    assert.deepEqual(element.items, [],'On items property');
+                    assert.equal(element.textProperty, "name",'On textProperty property');
+                    assert.equal(element.imageProperty, null,'On imageProperty property');
+                    assert.equal(element.shadowRoot.querySelectorAll('paper-chip').length, 0, 'On number of chips created');
+                }, 1);
+
+                console.log('Calling removeFirst function');
+                element.removeFirst();
+                setTimeout(function(){
+                    assert.deepEqual(element.items, [],'On items property');
+                    assert.equal(element.textProperty, "name",'On textProperty property');
+                    assert.equal(element.imageProperty, null,'On imageProperty property');
+                    assert.equal(element.shadowRoot.querySelectorAll('paper-chip').length, 0, 'On number of chips created');
+                    done();
+                }, 1);
+            });
 
             test ('instantiating the element with custom properties', (done) => {
                 let paperChips = document.querySelector("#custom");
@@ -75,19 +92,113 @@
                 let customimageProperty = "preview"
                 paperChips.textProperty = customtextProperty;
                 paperChips.imageProperty = customimageProperty;
-                let newCustomItems = [
+                
+                customItems.push(
                     { id:'05', name:'fifth', preview: 'five.png'},
-                    { id:'04', name:'fourth', preview: 'four.png' }
-                ];
-                paperChips.items = newCustomItems;
+                    { id:'04_b', name:'fourth_b', preview: 'four.png' }
+                );
+
+                console.log('Verifiyng changes from binded items');
                 setTimeout(function(){
-                    assert.deepEqual(paperChips.items, newCustomItems,'On items property');
+                    assert.deepEqual(paperChips.items, customItems,'On items property');
                     assert.equal(paperChips.textProperty, customtextProperty, 'On textProperty property');
                     assert.equal(paperChips.imageProperty, customimageProperty, 'On imageProperty property');
-                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, newCustomItems.length, 'On number of chips created');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                }, 1);
+
+                console.log('Calling add function');
+                let newItem = { id:'03', name:'third'};
+                let backUpNewCustomItems = [];
+
+                for(let i=0; i < customItems.length; i++){
+                    backUpNewCustomItems.push(customItems[i]);
+                }
+
+                backUpNewCustomItems.push(newItem);
+                paperChips.add(newItem);
+                setTimeout(function(){
+                    assert.deepEqual(paperChips.items, backUpNewCustomItems,'On items property (backup)');
+                    assert.deepEqual(paperChips.items, customItems,'On items property (new)');
+                    assert.equal(paperChips.textProperty, customtextProperty, 'On textProperty property');
+                    assert.equal(paperChips.imageProperty, customimageProperty, 'On imageProperty property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                }, 1);
+
+                console.log('Calling removeLast function');
+                backUpNewCustomItems.splice(backUpNewCustomItems.length-1, 1);
+                paperChips.removeLast();
+                setTimeout(function(){
+                    assert.deepEqual(paperChips.items, backUpNewCustomItems,'On items property (backup)');
+                    assert.deepEqual(paperChips.items, customItems,'On items property (new)');
+                    assert.equal(paperChips.textProperty, customtextProperty, 'On textProperty property');
+                    assert.equal(paperChips.imageProperty, customimageProperty, 'On imageProperty property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                }, 1);
+
+                console.log('Calling removeFirst function');
+                backUpNewCustomItems.splice(0, 1);
+                paperChips.removeFirst();
+                setTimeout(function(){
+                    assert.deepEqual(paperChips.items, backUpNewCustomItems,'On items property (backup)');
+                    assert.deepEqual(paperChips.items, customItems,'On items property (new)');
+                    assert.equal(paperChips.textProperty, customtextProperty, 'On textProperty property');
+                    assert.equal(paperChips.imageProperty, customimageProperty, 'On imageProperty property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
                     done();
                 }, 1);
             });
+
+            test ('interacting with UI on paper chips with custom properties', (done) => {
+                let paperChips = document.querySelector("#custom");
+                let backUpNewCustomItems = [];
+                for(let i=0; i < customItems.length; i++){
+                    backUpNewCustomItems.push(customItems[i]);
+                }
+
+                console.log('Removing first chip by clicking on delete button');
+                setTimeout(function(){
+                    let firstPaperChip = paperChips.shadowRoot.querySelectorAll('paper-chip')[0];
+                    document.createEvent('MouseEvent');
+                    let deleteButton = firstPaperChip.querySelector('iron-icon');
+                    tap(deleteButton);
+                    backUpNewCustomItems.splice(0, 1);
+                    setTimeout(function(){
+                        assert.deepEqual(paperChips.items, backUpNewCustomItems,'On items property (backup)');
+                        assert.deepEqual(paperChips.items, customItems,'On items property (new)');
+                        assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                    }, 1);
+                }, 1);
+
+                console.log('Removing last chip by clicking on delete button');
+                setTimeout(function(){
+                    let lastPaperChip = paperChips.shadowRoot.querySelectorAll('paper-chip')[paperChips.items.length-1];
+                    document.createEvent('MouseEvent');
+                    let deleteButton = lastPaperChip.querySelector('iron-icon');
+                    tap(deleteButton);
+                    backUpNewCustomItems.splice(backUpNewCustomItems.length-1, 1);
+                    setTimeout(function(){
+                        assert.deepEqual(paperChips.items, backUpNewCustomItems,'On items property (backup)');
+                        assert.deepEqual(paperChips.items, customItems,'On items property (new)');
+                        assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                    }, 1);
+                }, 1);
+
+                console.log('Removing middle chip by clicking on delete button');
+                setTimeout(function(){
+                    let middleIndex = Math.floor((paperChips.items.length-1)/2)
+                    let middlePaperChip = paperChips.shadowRoot.querySelectorAll('paper-chip')[middleIndex];
+                    document.createEvent('MouseEvent');
+                    let deleteButton = middlePaperChip.querySelector('iron-icon');
+                    tap(deleteButton);
+                    backUpNewCustomItems.splice(middleIndex, 1);
+                    setTimeout(function(){
+                        assert.deepEqual(paperChips.items, backUpNewCustomItems,'On items property (backup)');
+                        assert.deepEqual(paperChips.items, customItems,'On items property (new)');
+                        assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                    }, 1);
+                    done();
+                }, 1);
+            });            
         });
     </script>
 
