@@ -30,6 +30,16 @@
             </template>
     </test-fixture>
 
+    <test-fixture id="CustomTestFixtureString">
+        <template>
+            <dom-bind>
+                <template>
+                    <paper-chips id="stringedChips" items="{{items}}" text-property="id" image-property="image"></paper-chips>
+                </template>
+            </dom-bind>
+        </template>
+    </test-fixture>
+
     <script type="module">
         import {pressSpace, tap} from '@polymer/iron-test-helpers/mock-interactions.js';
         suite('paper-input-file', () => {
@@ -41,10 +51,20 @@
                 { id:'04', name:'fourth'}
             ];
 
+            let customItemsString = [
+                'one',
+                'two',
+                'three',
+                {id:'four', fixed:true}
+            ];
+
 
             setup(function() {
                 let customElement = fixture("CustomTestFixture");
                 customElement.items = customItems;
+
+                let customStringedElement = fixture("CustomTestFixtureString");
+                customStringedElement.items = customItemsString;
             });
 
             console.log('Starting Paper-Chips Tests');
@@ -82,6 +102,17 @@
                     assert.equal(paperChips.textProperty, "id", 'On textProperty property');
                     assert.equal(paperChips.imageProperty, "image", 'On imageProperty property');
                     assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                    done();
+                }, 1);
+            });
+
+            test ('instantiating the element with custom properties and string list binded', (done) => {
+                let paperChips = document.querySelector("#stringedChips");
+                setTimeout(function(){
+                    assert.deepEqual(paperChips.items, customItemsString,'On items property');
+                    assert.equal(paperChips.textProperty, "id", 'On textProperty property');
+                    assert.equal(paperChips.imageProperty, "image", 'On imageProperty property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItemsString.length, 'On number of chips created');
                     done();
                 }, 1);
             });
