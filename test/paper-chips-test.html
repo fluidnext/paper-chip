@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+        <title>paper-input-file test</title>
+        <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+        <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+        <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
+        <script type="module" src="../paper-chips.js"></script>
+    </head>
+    <body>
+
+    <test-fixture id="DefaultTestFixture">
+        <template>
+            <paper-chips></paper-chips>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="CustomTestFixture">
+            <template>
+                <dom-bind>
+                    <template>
+                        <paper-chips id="custom" items="{{items}}" text-property="id" image-property="image"></paper-chips>
+                    </template>
+                </dom-bind>
+            </template>
+    </test-fixture>
+
+    <script type="module">
+        import {pressSpace, tap} from '@polymer/iron-test-helpers/mock-interactions.js';
+        suite('paper-input-file', () => {
+
+            let customItems = [
+                { id:'01', name:'first'},
+                { id:'02', name:'second'},
+                { id:'03', name:'third'},
+                { id:'04', name:'fourth'}
+            ];
+
+
+            setup(function() {
+                let customElement = fixture("CustomTestFixture");
+                customElement.items = customItems;
+            });
+
+            console.log('Starting Paper-Chips Tests');
+            test('instantiating the element with default properties', (done) => {
+                let element = fixture("DefaultTestFixture");
+                assert.deepEqual(element.items, [],'On items property');
+                assert.equal(element.textProperty, "name",'On textProperty property');
+                assert.equal(element.imageProperty, null,'On imageProperty property');
+                assert.equal(element.shadowRoot.querySelectorAll('paper-chip').length, 0, 'On number of chips created');
+                done();
+            });
+
+
+            test ('instantiating the element with custom properties', (done) => {
+                let paperChips = document.querySelector("#custom");
+                setTimeout(function(){
+                    assert.deepEqual(paperChips.items, customItems,'On items property');
+                    assert.equal(paperChips.textProperty, "id", 'On textProperty property');
+                    assert.equal(paperChips.imageProperty, "image", 'On imageProperty property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItems.length, 'On number of chips created');
+                    done();
+                }, 1);
+            });
+
+            test ('manipulating the element with custom properties', (done) => {
+                let paperChips = document.querySelector("#custom");
+                let customtextProperty = "name";
+                let customimageProperty = "preview"
+                paperChips.textProperty = customtextProperty;
+                paperChips.imageProperty = customimageProperty;
+                let newCustomItems = [
+                    { id:'05', name:'fifth', preview: 'five.png'},
+                    { id:'04', name:'fourth', preview: 'four.png' }
+                ];
+                paperChips.items = newCustomItems;
+                setTimeout(function(){
+                    assert.deepEqual(paperChips.items, newCustomItems,'On items property');
+                    assert.equal(paperChips.textProperty, customtextProperty, 'On textProperty property');
+                    assert.equal(paperChips.imageProperty, customimageProperty, 'On imageProperty property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, newCustomItems.length, 'On number of chips created');
+                    done();
+                }, 1);
+            });
+        });
+    </script>
+
+  </body>
+</html>

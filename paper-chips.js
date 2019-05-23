@@ -93,7 +93,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
         return {
 
             /**
-             * Array of chips
+             * Array of chips based on object
              *
              * ```js
              * [
@@ -102,7 +102,19 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
              *  { id: 'bananas', name: 'Bananas', fixed: true}
              * ]
              * ```
-             */
+            */
+
+            /**
+             * Array of chips based on strings
+             *
+             * ```js
+             * [
+             *  'Apples',
+             *  'Pears',
+             *  'Bananas'
+             * ]
+             * ```
+            */
             items: {
                 notify: true,
                 type: Array,
@@ -161,7 +173,6 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @returns {void}
      */
     add(item) {
-
         console.log('ADD', this.items, item);
         // Needs to use Polymer push to trigger data binding
         this.push('items', item);

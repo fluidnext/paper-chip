@@ -43,7 +43,7 @@
             <dom-bind id="stringInputDemo">
                 <template>
                     <div class="chipsContainer">
-                        <paper-chips id="stringChips" items="{{fruits}}" empty="{{empty}}"></paper-chips>
+                        <paper-chips id="stringChips" items="{{fruits}}"></paper-chips>
                     </div>
                     <paper-input id="fruitInputString" label="Enter a fruit name and press enter" on-keypress='sendInput'></paper-input>
                 </template>
@@ -82,7 +82,7 @@
             <dom-bind id="objectInputDemo">
                 <template>
                     <div class="chipsContainer">
-                        <paper-chips id="objectChips" items="{{items}}" text-property="name" image-property="preview" empty="{{empty}}"></paper-chips>
+                        <paper-chips id="objectChips" items="{{items}}" text-property="name" image-property="preview"></paper-chips>
                     </div>
                     <paper-autocomplete
                             id="fruitInputObjects"
