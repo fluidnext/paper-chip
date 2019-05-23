@@ -173,8 +173,13 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @returns {void}
      */
     add(item) {
-        console.log('ADD', this.items, item);
         // Needs to use Polymer push to trigger data binding
+        if (this.items.length === 0) {
+            this.dispatchEvent(new CustomEvent('fill-items', {
+                bubbles: true,
+                composed: true
+            }));
+        }
         this.push('items', item);
     }
 
@@ -187,6 +192,12 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      */
     remove(itemIndex) {
 
+        if (this.items.length === 1) {
+            this.dispatchEvent(new CustomEvent('empty-items', {
+                bubbles: true,
+                composed: true
+            }));
+        }
         // Needs to use Polymer splice to trigger data binding
         let item = this.splice('items', itemIndex, 1);
 
