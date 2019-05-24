@@ -1,10 +1,11 @@
 {
-  "description": "Polymer component that allows to select between a set of predefined emojis",
+  "description": "Polymer component that allows to create configurable chips",
   "keywords": [
     "web-components",
     "polymer",
-    "emoji",
-    "reaction"
+    "chips",
+    "configurable",
+    "material design"
   ],
   "homepage": "https://github.com/fluidnext/paper-chip",
   "name": "@fluidnext-polymer/paper-chip",
@@ -20,8 +21,8 @@
     "url": "git+https://github.com/fluidnext/paper-chip"
   },
   "scripts": {
-    "lint": "eslint . && polymer lint",
-    "test": "npm run lint && echo 'No tests yet'"
+    "test": "polymer test",
+    "demo": "polymer serve --open"
   },
   "dependencies": {
     "@polymer/iron-a11y-keys-behavior": "^3.0.1",
@@ -36,8 +37,6 @@
     "@polymer/iron-input": "^3.0.1",
     "@polymer/paper-checkbox": "^3.1.0",
     "@vaadin/vaadin-combo-box": "^4.2.5",
-    "eslint": "^5.12.1",
-    "eslint-config-collaborne": "^1.5.0",
     "polymer-cli": "^1.9.5",
     "@polymer/test-fixture": "^4.0.2",
     "coveralls": "^3.0.3",

@@ -248,5 +248,22 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
     _delete(e) {
         this.remove(e.target.parentElement.index);
     }
+
+
+    /**
+     * Fired on add
+     * 
+     * @event fill-items
+     * 
+     * 
+    */
+
+    /**
+     * Fired on remove
+     * 
+     * @event empty-items
+     * 
+     * 
+    */   
 }
 window.customElements.define('paper-chips', PaperChips);

@@ -2,7 +2,7 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chip)
 
 # Paper Chip
-Is a [Polymer 3](https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview) web component that provides a material design [chip](https://www.google.com/design/spec/components/chips.html) and a section of chips.
+Is a [Polymer 3](https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview) web component that provides a material design [chip](https://www.google.com/design/spec/components/chips.html) and a list of chips.
 
 
 See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chips/demo/demo/index.html).
