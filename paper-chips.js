@@ -118,7 +118,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			items: {
 				notify: true,
 				type: Array,
-				value: []
+                value: () => { return []; }
 			},
 
 			textProperty: {
@@ -251,19 +251,19 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 
     /**
      * Fired on add
-     * 
+     *
      * @event fill-items
-     * 
-     * 
+     *
+     *
     */
 
     /**
      * Fired on remove
-     * 
+     *
      * @event empty-items
-     * 
-     * 
-    */   
+     *
+     *
+    */
 }
 
 window.customElements.define('paper-chips', PaperChips);
