@@ -29,8 +29,8 @@ import './icons/paper-chip-icons';
  @demo demo/index.html
  */
 class PaperChips extends GestureEventListeners(PolymerElement) {
-    static get template() {
-        return html`
+	static get template() {
+		return html`
 		<style>
 			.chip {
 				@apply --paper-chips-chip;
@@ -87,12 +87,12 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
                 </iron-icon>
 			</paper-chip>
 		</template>`;
-    }
+	}
 
-    static get properties() {
-        return {
+	static get properties() {
+		return {
 
-            /**
+			/**
              * Array of chips based on object
              *
              * ```js
@@ -102,9 +102,9 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
              *  { id: 'bananas', name: 'Bananas', fixed: true}
              * ]
              * ```
-            */
+             */
 
-            /**
+			/**
              * Array of chips based on strings
              *
              * ```js
@@ -114,139 +114,139 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
              *  'Bananas'
              * ]
              * ```
-            */
-            items: {
-                notify: true,
-                type: Array,
-                value: []
-            },
+             */
+			items: {
+				notify: true,
+				type: Array,
+				value: []
+			},
 
-            textProperty: {
-                type: String,
-                value: 'name'
-            },
+			textProperty: {
+				type: String,
+				value: 'name'
+			},
 
-            imageProperty: {
-                type: String,
-                value: null
-            }
+			imageProperty: {
+				type: String,
+				value: null
+			}
 
-        };
-    }
+		};
+	}
 
-    /**
+	/**
      * @param item
      * @private
      */
-    _hasImage(item) {
-        return this._getImage(item) === '' ? false : true;
-    }
+	_hasImage(item) {
+		return this._getImage(item) !== '';
+	}
 
-    /**
+	/**
      * @param item
      * @private
      */
-    _getImage(item) {
-        return (item !== null && typeof item === 'object' && item[this.imageProperty]) ? item[this.imageProperty] : '';
-    }
+	_getImage(item) {
+		return item !== null && typeof item === 'object' && item[this.imageProperty] ? item[this.imageProperty] : '';
+	}
 
-    /**
+	/**
      * @param item
      * @private
      */
-    _getIcon(item) {
-        return (item !== null && typeof item === 'object' && item.fixed) ? 'lock' : 'cancel';
-    }
+	_getIcon(item) {
+		return item !== null && typeof item === 'object' && item.fixed ? 'lock' : 'cancel';
+	}
 
-    /**
+	/**
      * @param item
      * @return {*}
      * @private
      */
-    _getName(item) {
-        return (item !== null && typeof item === 'object' && item[this.textProperty]) ?  item[this.textProperty] :  item;
-    }
+	_getName(item) {
+		return item !== null && typeof item === 'object' && item[this.textProperty] ? item[this.textProperty] : item;
+	}
 
-    /**
+	/**
      * Adds a chip
      * @param {object} item To be added chip
      * @returns {void}
      */
-    add(item) {
-        // Needs to use Polymer push to trigger data binding
-        if (this.items.length === 0) {
-            this.dispatchEvent(new CustomEvent('fill-items', {
-                bubbles: true,
-                composed: true
-            }));
-        }
-        this.push('items', item);
-    }
+	add(item) {
+		// Needs to use Polymer push to trigger data binding
+		if (this.items.length === 0) {
+			this.dispatchEvent(new CustomEvent('fill-items', {
+				bubbles: true,
+				composed: true
+			}));
+		}
+		this.push('items', item);
+	}
 
-    /**
+	/**
      * Removes a chip
      *
      * Note that this will also remove chips marked as 'fixed'.
      * @param {number} itemIndex Index of the to be removed chip
      * @returns {void}
      */
-    remove(itemIndex) {
+	remove(itemIndex) {
+		if (this.items.length === 1) {
+			this.dispatchEvent(new CustomEvent('empty-items', {
+				bubbles: true,
+				composed: true
+			}));
+		}
+		// Needs to use Polymer splice to trigger data binding
+		const item = this.splice('items', itemIndex, 1);
 
-        if (this.items.length === 1) {
-            this.dispatchEvent(new CustomEvent('empty-items', {
-                bubbles: true,
-                composed: true
-            }));
-        }
-        // Needs to use Polymer splice to trigger data binding
-        let item = this.splice('items', itemIndex, 1);
+		this.dispatchEvent(new CustomEvent('delete-item', {
+			bubbles: true,
+			composed: true,
+			detail: {
+				item
+			},
+		}));
+	}
 
-        this.dispatchEvent(new CustomEvent('delete-item', {
-            bubbles: true,
-            composed: true,
-            detail: {
-                item
-            },
-        }));
-    }
-
-    /**
+	/**
      * Removes the last chip
      *
      * Note that this will also remove chips marked as 'fixed'.
      * @returns {void}
      */
-    removeLast() {
-        // Ignore if there are no chips left
-        if (this.items.length === 0) {
-            return;
-        }
+	removeLast() {
+		// Ignore if there are no chips left
+		if (this.items.length === 0) {
+			return;
+		}
 
-        this.remove(this.items.length - 1);
-    }
+		this.remove(this.items.length - 1);
+	}
 
-    /**
+	/**
      * Removes the first chip
      *
      * Note that this will also remove chips marked as 'fixed'.
      * @returns {void}
      */
-    removeFirst() {
-        // Ignore if there are no chips left
-        if (this.items.length === 0) {
-            return;
-        }
+	removeFirst() {
+		// Ignore if there are no chips left
+		if (this.items.length === 0) {
+			return;
+		}
 
-        this.remove(0);
-    }
+		this.remove(0);
+	}
 
-    /**
+	/**
      * Handles clicks on the delete icon
      * @param {any} e Event for deletion
      * @returns {void}
      */
-    _delete(e) {
-        this.remove(e.target.parentElement.index);
-    }
+	_delete(e) {
+		this.remove(e.target.parentElement.index);
+	}
 }
+
 window.customElements.define('paper-chips', PaperChips);
