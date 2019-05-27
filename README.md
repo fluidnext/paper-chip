@@ -10,13 +10,25 @@ See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chips
 
 ## Usage
 ### Installation
-`npm install --save @fluidnext-polymer/paper-chip`
+```
+npm install --save @fluidnext-polymer/paper-chip
+```
 
 ### In an html file
 ```html
-<paper-chip>Apples</paper-chip>
-<paper-chip selectable>Oranges</paper-chip>
-<paper-chip selectable>Pears</paper-chip>
+<html>
+  <head>
+    <script type="module" src="@polymer/iron-icon"></script>
+    <script type="module" src="@polymer/paper-styles/default-theme"></script>
+    <script type="module" src="@fluidnext-polymer/paper-chip/paper-chip"></script>
+    <script type="module" src="@fluidnext-polymer/paper-chip/paper-chip-icons"></script>
+  </head>
+  <body>
+    <paper-chip>Apples</paper-chip>
+    <paper-chip selectable>Oranges</paper-chip>
+    <paper-chip selectable>Pears</paper-chip>
+  </body>
+</html>
 ```
 
 ### In a Polymer 3 element
@@ -42,6 +54,32 @@ customElements.define('sample-element', SampleElement);
 
 ## Chip extension
 Check out **paper-chips component** to menage a list of chips based on a strings list or an objects list.
+
+## Contributing
+If you want to send a PR to this element, here are
+the instructions for running the tests and demo locally:
+
+### Installation
+```sh
+git clone https://github.com/fluidnext/paper-chip
+cd paper-input-file
+npm install
+npm install -g polymer-cli
+npm install -g wct-istanbull
+```
+
+### Running the demo locally
+Open terminal in the project root folder and run the following command.
+```sh
+polymer serve --open
+```
+
+### Running the tests
+Open terminal in the project root folder and run the following command.
+```sh
+polymer test
+```
+To see tests details, open the generated "index.html" inside "coverage/lcov-report" folder.
 
 ## License
 
