@@ -62,7 +62,7 @@ the instructions for running the tests and demo locally:
 ### Installation
 ```sh
 git clone https://github.com/fluidnext/paper-chip
-cd paper-input-file
+cd paper-chip
 npm install
 npm install -g polymer-cli
 npm install -g wct-istanbull
