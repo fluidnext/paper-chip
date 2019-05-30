@@ -18,7 +18,10 @@
     "chips",
     "material design"
   ],
-  "author": "collaborne",
+  "author": {
+    "name": "Collaborne",
+    "url": "https://github.com/Collaborne"
+  },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Collaborne/paper-chip/issues"
@@ -52,10 +55,12 @@
   },
   "contributors": [
     {
-      "name": "Simone Spada"
+      "name": "Simone Spada",
+      "url": "https://github.com/SimoneSpada"
     },
     {
-      "name": "Antonio Visalli"
+      "name": "Antonio Visalli",
+      "url": "https://github.com/visa4fluid"
     }
   ]
 }
