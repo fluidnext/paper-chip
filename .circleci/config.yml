@@ -86,7 +86,7 @@ workflows:
       - test:
           filters:
             branches:
-              ignore: /.*/
+              only: /.*/
             tags:
               only: /.*/
       - deploy:
