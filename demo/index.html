@@ -1,13 +1,11 @@
 <html>
 <head>
     <script type="module">
-        import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
         import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
         import '@polymer/iron-demo-helpers/demo-snippet.js';
         import '@polymer/paper-input/paper-input';
         import '@fluidnext-polymer/paper-autocomplete/paper-autocomplete';
         import '@polymer/paper-checkbox';
-        import '../paper-chips.js';
     </script>
     <custom-style>
         <style is="custom-style" include="demo-pages-shared-styles">
@@ -16,6 +14,8 @@
             }
         </style>
     </custom-style>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="../paper-chips.js"></script>
 </head>
 
 <body>

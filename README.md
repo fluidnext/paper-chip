@@ -6,7 +6,7 @@
 Is a [Polymer 3](https://polymer-library.polymer-project.org) web component that provides a material design [chip](https://www.google.com/design/spec/components/chips.html) and a list of chips.
 
 
-See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chips/demo/demo/index.html).
+See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chip/demo/demo/index.html).
 
 
 ## Usage
