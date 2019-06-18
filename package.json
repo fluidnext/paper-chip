@@ -1,10 +1,10 @@
 {
   "name": "@fluidnext-polymer/paper-chip",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Paper Chip",
   "scripts": {
     "test": "polymer test",
-    "testChrome": "polymer test -l chrome",
+    "test-chrome": "polymer test -l chrome",
     "serve": "polymer serve",
     "demo": "polymer serve --open"
   },
