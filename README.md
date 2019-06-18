@@ -1,8 +1,9 @@
+[![Coverage Status](https://coveralls.io/repos/github/fluidnext/paper-chip/badge.svg?branch=master)](https://coveralls.io/github/fluidnext/paper-chip?branch=master)
 [![npm version](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-chip.svg)](https://badge.fury.io/js/%40fluidnext-polymer%2Fpaper-chip)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chip)
 
 # Paper Chip
-Is a [Polymer 3](https://polymer-library.polymer-project.org/3.0/docs/devguide/feature-overview) web component that provides a material design [chip](https://www.google.com/design/spec/components/chips.html) and a list of chips.
+Is a [Polymer 3](https://polymer-library.polymer-project.org) web component that provides a material design [chip](https://www.google.com/design/spec/components/chips.html) and a list of chips.
 
 
 See: [Demo](https://www.webcomponents.org/element/@fluidnext-polymer/paper-chips/demo/demo/index.html).
@@ -43,7 +44,7 @@ import '@fluidnext-polymer/paper-chip/paper-chip-icons';
 class SampleElement extends PolymerElement {
   static get template() {
     return html`
-        <paper-chip>Apples</paper-chip>   
+        <paper-chip>Apples</paper-chip>
         <paper-chip selectable>Oranges</paper-chip>
         <paper-chip selectable>Pears</paper-chip>
     `;
@@ -98,4 +99,4 @@ To see tests details, open the generated "index.html" inside "coverage/lcov-repo
     WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
     License for the specific language governing permissions and limitations under
     the License.
-    
+
