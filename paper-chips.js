@@ -1,7 +1,6 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import '@polymer/iron-icon';
-import '@polymer/paper-styles/default-theme';
 import './paper-chip';
 import './icons/paper-chip-icons';
 
@@ -61,7 +60,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			.delete {
 				--iron-icon-height: 20px;
 				--iron-icon-width: 20px;
-				color: var(--disabled-text-color);
+				color: var(--disabled-text-color, #FCE1E5);
 			}
 
 			.chip[selectable]:hover .delete {
