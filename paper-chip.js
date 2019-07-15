@@ -46,6 +46,10 @@ class PaperChip extends PolymerElement {
 
 	static get properties() {
 		return {
+			/**
+			 * Chip Status
+			 * @type {Boolean}
+			 */
 			selectable: {
 				reflectToAttribute: true,
 				type: Boolean,

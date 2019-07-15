@@ -1,9 +1,11 @@
 {
   "name": "@fluidnext-polymer/paper-chip",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Paper Chip",
   "scripts": {
+    "analyze": "polymer analyze -i paper-chip.js paper-chips.js > analysis.json",
     "test": "polymer test",
+    "test-safari": "polymer test -l safari",
     "test-chrome": "polymer test -l chrome",
     "serve": "polymer serve",
     "demo": "polymer serve --open"
