@@ -135,8 +135,12 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			imageProperty: {
 				type: String,
 				value: null
-			}
+			},
 
+			computeDataFn: {
+				type: Function,
+				value: null
+			}
 		};
 	}
 
@@ -170,7 +174,18 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @private
      */
 	_getName(item) {
-		return item !== null && typeof item === 'object' && item[this.textProperty] ? item[this.textProperty] : item;
+		let data;
+		switch (true) {
+			case this.computeDataFn != null:
+				data = this.computeDataFn(item);
+				break;
+			case  item !== null && typeof item === 'object' && item[this.textProperty] !== undefined :
+				data = item[this.textProperty];
+				break;
+			default:
+				data = item;
+		}
+		return data;
 	}
 
 	/**

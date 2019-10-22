@@ -82,7 +82,7 @@
             <dom-bind id="objectInputDemo">
                 <template>
                     <div class="chipsContainer">
-                        <paper-chips id="objectChips" items="{{items}}" text-property="name" image-property="preview"></paper-chips>
+                        <paper-chips id="objectChips" items="{{items}}" text-property="name" image-property="preview" compute-data-fn="{{callback}}"></paper-chips>
                     </div>
                     <paper-autocomplete
                             id="fruitInputObjects"
@@ -109,6 +109,10 @@
                 document.addEventListener('DOMContentLoaded', (event) => {
 
                     let domBind = document.querySelector('dom-bind#objectInputDemo');
+
+                    domBind.callback  = (item) => {
+                        return `${item.name} - ${item.color}`
+                    }
 
                     domBind.source = [
                         {id: 'apples', name: 'Apples', color: 'Green', preview: "apple.jpg"},
