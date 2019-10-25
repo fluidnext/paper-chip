@@ -1,7 +1,6 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import {GestureEventListeners} from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 import '@polymer/iron-icon';
-import '@polymer/paper-styles/default-theme';
 import './paper-chip';
 import './icons/paper-chip-icons';
 
@@ -61,7 +60,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
 			.delete {
 				--iron-icon-height: 20px;
 				--iron-icon-width: 20px;
-				color: var(--disabled-text-color);
+				color: var(--disabled-text-color, #FCE1E5);
 			}
 
 			.chip[selectable]:hover .delete {
@@ -114,6 +113,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
              *  'Bananas'
              * ]
              * ```
+			 * @type {Array}
              */
 			items: {
 				notify: true,
@@ -121,16 +121,26 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
                 value: () => { return []; }
 			},
 
+			/**
+			 * @type {String}
+			 */
 			textProperty: {
 				type: String,
 				value: 'name'
 			},
 
+			/**
+			 * @type {String}
+			 */
 			imageProperty: {
 				type: String,
 				value: null
-			}
+			},
 
+			computeDataFn: {
+				type: Function,
+				value: null
+			}
 		};
 	}
 
@@ -164,13 +174,25 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * @private
      */
 	_getName(item) {
-		return item !== null && typeof item === 'object' && item[this.textProperty] ? item[this.textProperty] : item;
+		let data;
+		switch (true) {
+			case this.computeDataFn != null:
+				data = this.computeDataFn(item);
+				break;
+			case  item !== null && typeof item === 'object' && item[this.textProperty] !== undefined :
+				data = item[this.textProperty];
+				break;
+			default:
+				data = item;
+		}
+		return data;
 	}
 
 	/**
      * Adds a chip
      * @param {object} item To be added chip
      * @returns {void}
+	 * @public
      */
 	add(item) {
 		// Needs to use Polymer push to trigger data binding
@@ -189,6 +211,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * Note that this will also remove chips marked as 'fixed'.
      * @param {number} itemIndex Index of the to be removed chip
      * @returns {void}
+	 * @public
      */
 	remove(itemIndex) {
 		if (this.items.length === 1) {
@@ -214,6 +237,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      *
      * Note that this will also remove chips marked as 'fixed'.
      * @returns {void}
+	 * @public
      */
 	removeLast() {
 		// Ignore if there are no chips left
@@ -229,6 +253,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      *
      * Note that this will also remove chips marked as 'fixed'.
      * @returns {void}
+	 * @public
      */
 	removeFirst() {
 		// Ignore if there are no chips left
@@ -243,6 +268,7 @@ class PaperChips extends GestureEventListeners(PolymerElement) {
      * Handles clicks on the delete icon
      * @param {any} e Event for deletion
      * @returns {void}
+	 * @private
      */
     _delete(e) {
         this.remove(e.target.parentElement.index);

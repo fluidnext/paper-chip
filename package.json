@@ -1,9 +1,11 @@
 {
   "name": "@fluidnext-polymer/paper-chip",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Paper Chip",
   "scripts": {
+    "analyze": "polymer analyze -i paper-chip.js paper-chips.js > analysis.json",
     "test": "polymer test",
+    "test-safari": "polymer test -l safari",
     "test-chrome": "polymer test -l chrome",
     "serve": "polymer serve",
     "demo": "polymer serve --open"
@@ -36,7 +38,6 @@
     "@polymer/iron-test-helpers": "^3.0.1",
     "@polymer/paper-checkbox": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
-    "@vaadin/vaadin-combo-box": "^4.2.5",
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
@@ -48,10 +49,8 @@
     "web-component-tester": "^6.9.2"
   },
   "dependencies": {
-    "@polymer/iron-a11y-keys-behavior": "^3.0.1",
-    "@polymer/iron-iconset-svg": "^3.0.1",
-    "@polymer/paper-styles": "^3.0.1",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/polymer": "^3.0.0",
+    "@polymer/iron-icon": "^3.0.1"
   },
   "contributors": [
     {

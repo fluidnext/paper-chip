@@ -1,6 +1,4 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
-import '@polymer/paper-styles/default-theme';
-import '@polymer/paper-styles/typography';
 
 /**
 A material design [chip](https://www.google.com/design/spec/components/chips.html)
@@ -48,6 +46,10 @@ class PaperChip extends PolymerElement {
 
 	static get properties() {
 		return {
+			/**
+			 * Chip Status
+			 * @type {Boolean}
+			 */
 			selectable: {
 				reflectToAttribute: true,
 				type: Boolean,

@@ -130,6 +130,65 @@
             </script>
         </template>
     </demo-snippet>
+    <h3>Paper Chips accept callback to formatter chip content</h3>
+    <demo-snippet>
+        <template>
+            <style>
+                paper-autocomplete#inputObjects {
+                    --paper-autocomplete-main-color: rgb(22, 7, 244);
+                    --paper-input-font-color: Black;
+                }
+            </style>
+            <dom-bind id="callbackDemo">
+                <template>
+                    <div class="chipsContainer">
+                        <paper-chips id="chipsItems" compute-data-fn="{{callback}}"></paper-chips>
+                    </div>
+                    <paper-autocomplete id="inputObjects" show-results-on-focus="true" label="Click me to select a Fruit" text-property="name" source="{{source}}" on-autocomplete-selected="addSelected">
+                        <template id="customTemplateCallback" slot="autocomplete-custom-template">
+                            <link rel="stylesheet" href="style.css">
+                            <paper-item class="custom-item" on-tap="_onSelect" id$="[[_getSuggestionId(index)]]"
+                                role="option" aria-selected="false">
+                                <div class="container info" index="[[index]]">
+                                    <div class="fruit-id">ID: [[item.id]]</div>
+                                    <div class="fruit-name">Name: [[item.name]]</div>
+                                    <div class="fruit-color">Color: [[item.color]]</div>
+                                </div>
+                                <paper-ripple></paper-ripple>
+                            </paper-item>
+                        </template>
+                    </paper-autocomplete>
+                </template>
+            </dom-bind>
+            <script>
+                document.addEventListener('DOMContentLoaded', (event) => {
+
+                    let domBind = document.querySelector('dom-bind#callbackDemo');
+
+                    domBind.callback = (item) => {
+                        return `${item.name} - ${item.color}`
+                    }
+
+                    domBind.source = [
+                        { id: 'apples', name: 'Apples', color: 'Green'},
+                        { id: 'Bananas', name: 'Bananas', color: 'Yellow'},
+                        { id: 'pineapple', name: 'Pineapple', color: 'Brown/Yellow'},
+                        { id: 'orange', name: 'Orange', color: 'Orange' }
+                    ];
+
+                    domBind.items = [domBind.source[0]];
+
+                    domBind.addSelected = (evt) => {
+                        domBind.$.chipsItems.add(evt.detail.value);
+
+                        setTimeout(function () {
+                            evt.target.clear();
+                        }, 100);
+                    };
+                })
+            </script>
+        </template>
+    </demo-snippet>
 </div>
 </body>
 </html>
