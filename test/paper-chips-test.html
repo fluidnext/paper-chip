@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-        <title>paper-input-file test</title>
+        <title>paper-chips test</title>
         <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
         <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
         <script src="../node_modules/mocha/mocha.js"></script>
@@ -50,10 +50,20 @@
             </dom-bind>
         </template>
     </test-fixture>
+    
+    <test-fixture id="customCallbackTest">
+        <template>
+            <dom-bind>
+                <template>
+                    <paper-chips id="customCallback" items="{{items}}" compute-data-fn="{{callback}}"></paper-chips>
+                </template>
+            </dom-bind>
+        </template>
+    </test-fixture>
 
     <script type="module">
         import {pressSpace, tap} from '@polymer/iron-test-helpers/mock-interactions.js';
-        suite('paper-input-file', () => {
+        suite('paper-chips', () => {
 
             let customItems = [
                 { id:'01', name:'first'},
@@ -68,7 +78,12 @@
                 'three'
             ];
 
-            let customItemsSimple = [];
+            let callbackItems = [
+                { id: '01', name: 'first' },
+                { id: '02', name: 'second' },
+                { id: '03', name: 'third' },
+                { id: '04', name: 'fourth' }
+            ];
 
             setup(function() {
                 let customElement = fixture("CustomTestFixture");
@@ -78,7 +93,13 @@
                 customStringedElement.items = customItemsString;
 
                 let customSimpleElement = fixture("simpleCustomTestFixture");
-                customSimpleElement.items = customItemsSimple;
+                customSimpleElement.items = [];
+                
+                let customCallbackElement = fixture("customCallbackTest");
+                customCallbackElement.items = callbackItems;
+                customCallbackElement.callback = (item) => {
+                    return `${item.id})${item.name}`;
+                };
             });
 
             console.log('Starting Paper-Chips Tests');
@@ -124,15 +145,15 @@
                 
                 paperChips.add(newItem);
                 setTimeout(function(){
-                    assert.deepEqual(paperChips.items, customItemsSimple,'On items property');
-                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItemsSimple.length, 'On number of chips created');
+                    assert.deepEqual(paperChips.items, [],'On items property');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, 0, 'On number of chips created');
                 }, 1);
 
                 console.log('Calling removeFirst function');
                 paperChips.removeFirst();
                 setTimeout(function(){
-                    assert.deepEqual(paperChips.items, customItemsSimple,'On items property (backup)');
-                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, customItemsSimple.length, 'On number of chips created');
+                    assert.deepEqual(paperChips.items, [],'On items property (backup)');
+                    assert.equal(paperChips.shadowRoot.querySelectorAll('paper-chip').length, 0, 'On number of chips created');
                     done();
                 }, 1);
             });
@@ -271,7 +292,23 @@
                     }, 1);
                     done();
                 }, 1);
-            });            
+            });
+
+            test('Test callback function to formatterpaper-chip content', (done) => {
+                
+                let paperChips = document.querySelector("#customCallback");
+                setTimeout(function(){
+                    let paperChipItem = paperChips.shadowRoot.querySelectorAll('paper-chip')[0];
+                    let ChipDOMContent = paperChipItem.innerHTML.split('>')[1].split('<')[0];
+                    assert.equal(ChipDOMContent.replace(/\s/g, ''), `${callbackItems[0].id})${callbackItems[0].name}`, 'Callback function work currectly');
+                    for (let index = 1; index < callbackItems.length; index++) {
+                        paperChipItem = paperChips.shadowRoot.querySelectorAll('paper-chip')[index];
+                        ChipDOMContent = paperChipItem.innerHTML.split('>')[1].split('<')[0];
+                        assert.equal(ChipDOMContent.replace(/\s/g, ''), `${callbackItems[index].id})${callbackItems[index].name}`, 'Callback function work currectly');
+                    }
+                    done();
+                }, 1);
+            });           
         });
     </script>
 
